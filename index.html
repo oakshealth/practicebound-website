@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>PracticeBound™ - Professional Clinical Preceptorship</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #A97063;
+            --secondary: #2D5A5A;
+            --dark: #2C3E50;
+            --light: #F5F3F0;
+            --accent: #E8B4A8;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #E0DCD8;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: #fff;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: auto;
+            min-height: 70px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--secondary);
+            white-space: nowrap;
+        }
+
+        .hamburger-icon {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+            background: none;
+            border: none;
+            padding: 10px;
+            z-index: 150;
+        }
+
+        .hamburger-icon span {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-icon.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger-icon.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-icon.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .cta-button:hover {
+            background: #8b5a52;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger-icon {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: white;
+                flex-direction: column;
+                gap: 20px;
+                padding: 30px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 99;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light) 0%, #fafaf8 100%);
+            padding: 80px 40px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero .tagline {
+            font-size: 20px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .hero-trust {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .primary-btn {
+            background: var(--primary);
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .primary-btn:hover {
+            background: #8b5a52;
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: var(--secondary);
+            padding: 14px 32px;
+            border: 2px solid var(--secondary);
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 20px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero .tagline {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .primary-btn, .secondary-btn {
+                width: 100%;
+            }
+        }
+
+        /* Content Section */
+        .section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 36px;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .section h3 {
+            font-size: 24px;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Pricing Grid */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pricing-card {
+            background: var(--light);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(169, 112, 99, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card h4 {
+            color: var(--secondary);
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .pricing-card .price {
+            font-size: 36px;
+            color: var(--primary);
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .pricing-card ul li:before {
+            content: "✓ ";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .pricing-card button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .pricing-card button:hover {
+            background: #8b5a52;
+        }
+
+        /* Preceptor Grid */
+        .preceptor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .preceptor-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .preceptor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .preceptor-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: #e0e0e0;
+        }
+
+        .preceptor-info {
+            padding: 25px;
+        }
+
+        .preceptor-info h4 {
+            color: var(--secondary);
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .preceptor-title {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .preceptor-specialty {
+            color: var(--text-light);
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .preceptor-bio {
+            color: var(--text-light);
+            font-size: 13px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* Feature Card */
+        .feature-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: #f0ede9;
+        }
+
+        .faq-item h5 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            display: none;
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-container, .preceptor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .section h2 {
+                font-size: 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bg-light-section {
+            background: var(--light);
+        }
+
+        .max-width-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo-container" onclick="scrollToSection('home')">
+            <div class="logo-text">PracticeBound™</div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a onclick="scrollToSection('home')">Home</a></li>
+            <li><a onclick="scrollToSection('programs')">Programs</a></li>
+            <li><a onclick="scrollToSection('preceptors')">Our Team</a></li>
+            <li><a onclick="scrollToSection('why-cost')">Why It Costs</a></li>
+            <li><a onclick="scrollToSection('faq')">FAQ</a></li>
+            <li><a onclick="scrollToSection('contact')">Contact</a></li>
+            <li><button class="cta-button" onclick="scrollToSection('contact')">Get Started</button></li>
+        </ul>
+        <button class="hamburger-icon" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Real Clinical Supervision for NP & DNP Students</h1>
+        <p class="tagline">Professional preceptorship designed by NPs, for nursing students</p>
+        <p class="hero-trust">🇺🇸 US-Based | 🎖️ Veteran-Owned | 👩‍⚕️ NP-Owned</p>
+        <div class="hero-buttons">
+            <button class="primary-btn" onclick="scrollToSection('programs')">View Programs</button>
+            <button class="secondary-btn" onclick="scrollToSection('preceptors')">Meet Our Team</button>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section">
+        <h2>Our Programs</h2>
+        
+        <div class="pricing-container">
+            <!-- FNP Card -->
+            <div class="pricing-card">
+                <h4>FNP Clinical Program</h4>
+                <p style="color: var(--text-light); margin: 15px 0;">8-16 weeks | Flexible hours</p>
+                <div class="price">$2,400</div>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">Full payment or payment plan available</p>
+                <ul>
+                    <li>Real clinical supervision</li>
+                    <li>Weekly feedback sessions</li>
+                    <li>Mid & final evaluations</li>
+                    <li>Board exam prep</li>
+                    <li>$200 board pass bonus</li>
+                    <li>Flexible 8-20 hrs/week</li>
+                </ul>
+                <button onclick="alert('Link in bio for enrollment')">Enroll Now</button>
+            </div>
+
+            <!-- DNP Card -->
+            <div class="pricing-card">
+                <h4>DNP Clinical Program</h4>
+                <p style="color: var(--text-light); margin: 15px 0;">12-24 weeks | Flexible hours</p>
+                <div class="price">$3,200</div>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">Full payment or payment plan available</p>
+                <ul>
+                    <li>Real clinical supervision</li>
+                    <li>Weekly feedback sessions</li>
+                    <li>Mid & final evaluations</li>
+                    <li>Extended board prep</li>
+                    <li>$200 board pass bonus</li>
+                    <li>Flexible 10-20 hrs/week</li>
+                </ul>
+                <button onclick="alert('Link in bio for enrollment')">Enroll Now</button>
+            </div>
+
+            <!-- RN to BSN Card -->
+            <div class="pricing-card">
+                <h4>RN to BSN Program</h4>
+                <p style="color: var(--text-light); margin: 15px 0;">40 hours | Flexible schedule</p>
+                <div class="price">$1,200</div>
+                <p style="color: var(--text-light); margin-bottom: 20px; font-size: 14px;">Real preceptorship at half the market rate</p>
+                <ul>
+                    <li>Real clinical preceptorship</li>
+                    <li>Experienced RN/NP preceptor</li>
+                    <li>Weekly feedback</li>
+                    <li>Final evaluation</li>
+                    <li>Flexible scheduling</li>
+                    <li>Professional mentoring</li>
+                </ul>
+                <button onclick="alert('Link in bio for enrollment')">Enroll Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preceptor Team Section -->
+    <section id="preceptors" class="section bg-light-section">
+        <h2>Our Preceptor Team</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px;">Meet the experienced NPs leading your clinical journey</p>
+        
+        <div class="preceptor-grid">
+            <!-- Ursula White -->
+            <div class="preceptor-card">
+                <img src="ursula-white.jpg" alt="Dr. Ursula White" class="preceptor-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 300%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%22150%22 y=%22150%22 font-size=%2216%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3EPhoto: Ursula White%3C/text%3E%3C/svg%3E'">
+                <div class="preceptor-info">
+                    <h4>Dr. Ursula White</h4>
+                    <div class="preceptor-title">DNP, FNP-C | Founder & Lead Preceptor</div>
+                    <div class="preceptor-specialty">Practice Owner, Oaks Health Associates PC | 10+ years experience</div>
+                    <p class="preceptor-bio">"I'm passionate about training the next generation of nursing providers. Every student I work with is an investment in healthcare's future. I'm committed to ensuring you don't just pass your boards - you thrive in your career as a provider."</p>
+                </div>
+            </div>
+
+            <!-- Angela Coleman-Talbot -->
+            <div class="preceptor-card">
+                <img src="angela-coleman-talbot.jpg" alt="Dr. Angela Coleman-Talbot" class="preceptor-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 300%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%22150%22 y=%22150%22 font-size=%2216%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3EPhoto: Angela Coleman-Talbot%3C/text%3E%3C/svg%3E'">
+                <div class="preceptor-info">
+                    <h4>Dr. Angela Coleman-Talbot</h4>
+                    <div class="preceptor-title">DNP, FNP-C | Preceptor</div>
+                    <div class="preceptor-specialty">Oaks Health Associates PC</div>
+                    <p class="preceptor-bio">Coming Soon</p>
+                </div>
+            </div>
+
+            <!-- Mirian Thiruchendru -->
+            <div class="preceptor-card">
+                <img src="mirian-thiruchendru.jpg" alt="Mirian Thiruchendru" class="preceptor-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 300 300%22%3E%3Crect fill=%22%23e0e0e0%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%22150%22 y=%22150%22 font-size=%2216%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%23999%22%3EPhoto: Mirian Thiruchendru%3C/text%3E%3C/svg%3E'">
+                <div class="preceptor-info">
+                    <h4>Mirian Thiruchendru</h4>
+                    <div class="preceptor-title">MSN, FNP-C | Preceptor</div>
+                    <div class="preceptor-specialty">Oaks Health Associates PC</div>
+                    <p class="preceptor-bio">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: var(--text-light); margin-top: 40px; font-size: 14px;"><strong>Expanding to Virginia & Vermont</strong><br>We're actively recruiting experienced NP/DNP preceptors in Virginia (Q1 2026) and Vermont (Q2 2026).</p>
+    </section>
+
+    <!-- Why Preceptorship Costs Money Section -->
+    <section id="why-cost" class="section">
+        <h2>Why Does Preceptorship Cost Money?</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px; max-width: 800px; margin-left: auto; margin-right: auto;">Many students ask: "Why do I have to pay for preceptorship?" Here's why education from experienced professionals deserves fair compensation.</p>
+
+        <div class="max-width-container">
+            <h3>What You're Actually Paying For</h3>
+            
+            <div class="feature-card">
+                <h4>1. Expert Time & Experience</h4>
+                <p>Every preceptor charging for their services is investing their time—time that could be spent seeing more patients or running their practice. My 10+ years of experience didn't come free. That expertise has value.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>2. One-on-One Mentoring</h4>
+                <p>In nursing school, one professor teaches 30-100 students. In preceptorship, I dedicate focused attention to YOU as an individual learner. That personalized education model costs money.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>3. Clinical Liability & Responsibility</h4>
+                <p>When you see patients under my supervision, I'm responsible for every decision and outcome. I carry professional liability for your actions. That responsibility deserves compensation.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>4. Continuous Feedback & Coaching</h4>
+                <p>I spend time weekly giving you feedback, identifying gaps, and coaching you toward competency. This isn't passive observation—it's active teaching.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>5. Practice Management Expertise</h4>
+                <p>You're not just learning clinical skills. You're learning how to run a practice, manage patients, handle billing, and understand healthcare systems. That's real-world business knowledge.</p>
+            </div>
+
+            <div class="feature-card">
+                <h4>6. Board Exam Preparation</h4>
+                <p>My goal isn't just to get you through clinical hours—it's to prepare you to PASS your boards on the first attempt. That targeted preparation takes intentional planning.</p>
+            </div>
+
+            <h3 style="margin-top: 40px;">The Academic Parallel</h3>
+            <p style="color: var(--text-light); margin-bottom: 20px;">I teach nursing students at a highly regarded private university in Durham, NC. That university PAYS me to precept and teach because they understand that education has value. Why should NP/DNP preceptorship be different? The work is identical. The impact is arguably greater—NP students go on to be healthcare providers who make diagnoses, prescribe medications, and lead practices.</p>
+
+            <h3>The Bottom Line</h3>
+            <p style="color: var(--text-light); margin-bottom: 40px;">Quality education costs money. It always has. What we're doing is making quality, ethical preceptorship affordable—50-75% cheaper than other platforms—while maintaining the highest standards.</p>
+
+            <p style="text-align: center; color: var(--primary); font-weight: 600; font-size: 16px;">Your preceptor's time, expertise, and accountability are valuable. Paying for them is an investment in YOUR future as a healthcare provider. 💙</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section bg-light-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="max-width-container">
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>What is clinical preceptorship?</h5>
+                <div class="faq-answer">Clinical preceptorship is one-on-one mentoring from an experienced NP/DNP provider. You see patients under their supervision, receive feedback, and learn real-world clinical practice. It's different from shadowing or mentorship—you actively participate in patient care.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>How long does preceptorship take?</h5>
+                <div class="faq-answer">Duration depends on your program requirements: FNP students typically need 8-16 weeks, DNP students 12-24 weeks, and RN-BSN students 40 hours. We customize to YOUR timeline and YOUR hours per week.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>Can I do part-time preceptorship?</h5>
+                <div class="faq-answer">Absolutely! We offer flexible scheduling. Whether you can do 8 hours per week or 20 hours per week, we adapt to your life. Many students balance other work or coursework during preceptorship.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>What's included in the price?</h5>
+                <div class="faq-answer">Your price includes: real clinical supervision, weekly feedback sessions, mid and final evaluations, board exam preparation, and access to your preceptor. There are no hidden fees.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>Do you offer payment plans?</h5>
+                <div class="faq-answer">Yes! We offer flexible payment options. For example, FNP program: $800 down + $320/month for 5 months. We want to make this accessible.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>Will I see real patients?</h5>
+                <div class="faq-answer">Yes! You'll see actual patients in our established primary care practice. You'll develop real clinical skills with real patient continuity, not simulations or theory.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>What's the board exam bonus?</h5>
+                <div class="faq-answer">If you pass your NP/DNP boards on the first attempt, you get a $200 bonus from us. We're that confident in our supervision model and your success.</div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <h5>Are you expanding to other states?</h5>
+                <div class="faq-answer">Yes! We're currently in North Carolina and expanding to Virginia (Q1 2026) and Vermont (Q2 2026). Contact us to get on the waitlist for your state.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2>Ready to Get Started?</h2>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px; max-width: 700px; margin-left: auto; margin-right: auto;">Your clinical preceptorship doesn't have to be complicated or expensive. Let's work together to make your NP/DNP journey a success.</p>
+
+        <div style="max-width: 600px; margin: 0 auto; background: var(--light); padding: 40px; border-radius: 10px; border: 1px solid var(--border-color);">
+            <h3 style="text-align: center; margin-bottom: 30px;">Contact Information</h3>
+            
+            <div style="margin-bottom: 20px;">
+                <strong style="color: var(--secondary);">Phone</strong>
+                <p>(919) 724-4691</p>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong style="color: var(--secondary);">Email</strong>
+                <p>info@practicebound.com</p>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <strong style="color: var(--secondary);">Clinic Location</strong>
+                <p>1144 Executive Dr<br>Cary, NC 27519</p>
+            </div>
+
+            <button class="primary-btn" style="width: 100%;">Enroll Now</button>
+            <p style="text-align: center; margin-top: 20px; color: var(--text-light); font-size: 14px;">Questions? DM us on social media or call above. We answer personally.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div>
+                    <h5 style="margin-bottom: 15px;">PracticeBound™</h5>
+                    <p>Real clinical supervision. Real prices. Real support.</p>
+                </div>
+                <div>
+                    <h5 style="margin-bottom: 15px;">Quick Links</h5>
+                    <p><a href="#programs">Programs</a></p>
+                    <p><a href="#preceptors">Our Team</a></p>
+                    <p><a href="#faq">FAQ</a></p>
+                </div>
+                <div>
+                    <h5 style="margin-bottom: 15px;">Contact</h5>
+                    <p>📞 (919) 724-4691</p>
+                    <p>📧 info@practicebound.com</p>
+                </div>
+            </div>
+            <p style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">🇺🇸 US-Based | 🎖️ Veteran-Owned | 👩‍⚕️ NP-Owned<br>© 2026 PracticeBound™. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('navLinks').classList.remove('active');
+                document.getElementById('hamburger').classList.remove('active');
+            }
+        }
+
+        function toggleMenu() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        }
+
+        function toggleFAQ(element) {
+            element.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            if (!nav.contains(event.target)) {
+                document.getElementById('navLinks').classList.remove('active');
+                document.getElementById('hamburger').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
